@@ -1,0 +1,1 @@
+(()=>{class t{static euclidean(t,e){let a=0;for(let c=0;c<t.length;c++)a+=Math.pow(t[c]-e[c],2);return Math.sqrt(a).toFixed(2)}}window.VectorCalculator={calculate:function(e,a){const c=t.euclidean(e,a),n=new CustomEvent("calculate_distance",{detail:{distance:c,vectors:[e,a]}});return window.dispatchEvent(n),c}}})();
