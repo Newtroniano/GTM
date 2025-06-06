@@ -1,1 +1,33 @@
-(()=>{class t{static euclidean(t,e){let a=0;for(let c=0;c<t.length;c++)a+=Math.pow(t[c]-e[c],2);return Math.sqrt(a).toFixed(2)}}window.VectorCalculator={calculate:function(e,a){const c=t.euclidean(e,a),n=new CustomEvent("calculate_distance",{detail:{distance:c,vectors:[e,a]}});return window.dispatchEvent(n),c}}})();
+// ---- CÓDIGO QUE CALCULA DISTÂNCIAS ----
+class VectorMath {
+  static euclidean(vec1, vec2) {
+    let sum = 0;
+    for (let i = 0; i < vec1.length; i++) {
+      sum += Math.pow(vec1[i] - vec2[i], 2);
+    }
+    return Math.sqrt(sum).toFixed(2); // Arredonda para 2 decimais
+  }
+}
+
+// ---- DISPARADOR DE EVENTOS ----
+function calculateAndTrigger(vec1, vec2) {
+  const distance = VectorMath.euclidean(vec1, vec2);
+  
+  // Cria um evento personalizado
+  const event = new CustomEvent('calculate_distance', {
+    detail: {
+      distance: distance,
+      vectors: [vec1, vec2]
+    }
+  });
+  
+  // Dispara o evento para o GTM escutar
+  window.dispatchEvent(event);
+  
+  return distance;
+}
+
+// ---- EXPORTA FUNÇÃO PARA O GTM USAR ----
+window.VectorCalculator = {
+  calculate: calculateAndTrigger
+};
